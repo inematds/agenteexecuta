@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquiteto de Execução — decida sequência, paralelo ou híbrido antes de criar agentes</title>
+<meta name="description" content="Skill que aplica uma etapa de arquitetura antes de trabalhos complexos com agentes de IA: portão de proporcionalidade, matriz de decisão sequencial/paralelo/híbrido, executor mais barato e plano antes do primeiro subagente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex .card h3{margin-bottom:.7em}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🧭</span> Arquiteto de Execução</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#exemplos">Exemplos</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/agenteexecuta" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Skill · paralelo × sequencial × híbrido</span>
+      <h1>Decida a <span class="amb">arquitetura</span> antes de criar agentes</h1>
+      <p class="lead">Uma skill que escolhe entre sequência, paralelismo e fluxo híbrido antes de executar — menos tokens, menos retrabalho, mais consistência.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/agenteexecuta" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/hero.jpg" alt="Comparativo: paralelismo mal usado vs sequência inteligente com automação em paralelo"></figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Uma etapa de arquitetura antes de trabalhos complexos</h2>
+  <p class="sub">Agentes demais relendo o mesmo contexto desperdiçam tokens; sequência cega desperdiça tempo. A skill decide conscientemente — e só depois executa.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🚪 Portão de proporcionalidade</h3><p>Primeira decisão: a tarefa exige divisão, múltiplos executores ou contexto extenso? Se não, executa direto — sem burocracia de plano.</p></div>
+    <div class="card"><h3>⚖️ Matriz de decisão</h3><p>Sinais pontuados para sequencial e paralelo, com limiar objetivo: diferença ≥ 2 pontos decide; empate ou diferença menor → híbrido.</p></div>
+    <div class="card"><h3>💸 Executor mais barato</h3><p>Script para o mecânico, modelo econômico para o estruturado, modelo avançado só para estratégia e criação. Nunca um agente esperando render.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Do pedido ao plano — antes do primeiro subagente</h2>
+  <p class="sub">O fluxo separa raciocínio de execução: centraliza decisões, registra o contexto uma vez, automatiza o mecânico e paraleliza só o que é realmente independente.</p>
+  <div class="flow">
+    <span>Pedido</span><span class="arr">→</span>
+    <span>Portão de proporcionalidade</span><span class="arr">→</span>
+    <span>Decompor</span><span class="arr">→</span>
+    <span>Matriz de decisão</span><span class="arr">→</span>
+    <span>Plano compacto</span><span class="arr">→</span>
+    <span>Execução</span><span class="arr">→</span>
+    <span>Revisão central</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><span class="num">1</span><h3>Sequencial</h3><p>Tarefas dependentes ou com muito contexto compartilhado. O aprendizado de uma etapa alimenta a seguinte.</p></div>
+    <div class="card"><span class="num">2</span><h3>Paralelo</h3><p>Tarefas independentes, entradas congeladas, contexto pequeno por tarefa. Renders e conversões viram scripts em paralelo.</p></div>
+    <div class="card"><span class="num">3</span><h3>Híbrido</h3><p>Padrão para projetos grandes: planejamento centralizado, especificação única, execução independente em paralelo, revisão central.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que você precisa</h2>
+  <p class="sub">A skill é um pacote de arquivos Markdown — funciona em qualquer agente que suporte skills. O script de teste usa a CLI do Claude Code.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Um agente com skills</h3><p>Claude Code, ChatGPT (upload do zip) ou Codex. O núcleo é universal; os mapeamentos por plataforma estão em <code>references/</code>.</p><pre><span class="c"># conferir a CLI (para Claude Code)</span>
+<span class="k">claude</span> --version</pre></div>
+    <div class="card"><h3>Git</h3><p>Para clonar o repositório com a skill, o guia e o script de teste.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/agenteexecuta</span></pre></div>
+    <div class="card"><h3>Bash (opcional)</h3><p>Só para rodar o teste comportamental baseline × com skill.</p><pre><span class="k">bash</span> --version</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Instalar e usar a skill</h2>
+  <p class="sub">Do clone à validação comportamental, com comandos reais.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Clone o repositório</h3>
+    <p>A skill vive na pasta <code>arquiteto-de-execucao/</code>, com SKILL.md, referências e script de teste.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/agenteexecuta</span>
+<span class="k">cd</span> agenteexecuta</pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Instale no Claude Code</h3>
+    <p>Copie a pasta da skill para o diretório de skills do usuário. Ela passa a ser acionada automaticamente antes de trabalhos com subagentes ou lotes.</p>
+<pre><span class="k">cp -r</span> arquiteto-de-execucao ~/.claude/skills/  <span class="c"># disponível na próxima sessão</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Ou instale no ChatGPT / Codex</h3>
+    <p>Use o zip pronto — ele inclui o <code>agents/openai.yaml</code> com a configuração de interface para o ecossistema OpenAI.</p>
+<pre><span class="c"># suba este arquivo na criação da skill/GPT:</span>
+arquiteto-de-execucao-v2.zip</pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Use num trabalho grande</h3>
+    <p>Peça uma tarefa com múltiplas entregas. A skill produz o plano compacto ANTES de criar qualquer subagente — estratégia, o que é sequencial/paralelo, executores, limites e risco principal.</p>
+<pre><span class="c"># exemplo de pedido que ativa a skill:</span>
+<span class="s">"Produza 15 vídeos curtos da série X usando agentes. O guia de estilo tem 40 páginas."</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Em dúvida, consulte a matriz</h3>
+    <p>Sinais pontuados e limiar objetivo, com exemplos resolvidos (15 vídeos, pesquisa de mercado, migração, 500 arquivos).</p>
+<pre><span class="k">cat</span> arquiteto-de-execucao/references/decision-matrix.md</pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Valide o comportamento (baseline × com skill)</h3>
+    <p>O script roda os 3 cenários de teste em modo headless e salva as respostas para leitura manual contra os critérios de <code>references/test-scenarios.md</code>.</p>
+<pre><span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span>              <span class="c"># fumaça: cenário 1, 1 rep</span>
+<span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span> all both 5   <span class="c"># bateria completa</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Exemplos</span>
+  <h2>O princípio em números — e o plano que a skill produz</h2>
+  <p class="sub">A economia não vem de "sequencial ser sempre melhor": vem de amortizar o custo do contexto compartilhado.</p>
+  <div class="ex">
+    <div class="card"><h3>💰 Custo do contexto repetido</h3>
+<pre><span class="c"># 3 agentes relendo o mesmo material:</span>
+3 × (50k contexto + 20k execução) = <span class="k">210k tokens</span>
+
+<span class="c"># 1 executor reutilizando o contexto:</span>
+50k + 20k + 20k + 20k = <span class="k">110k tokens</span></pre>
+    </div>
+    <div class="card"><h3>📋 Plano compacto (saída da skill)</h3>
+<pre>Estratégia: híbrida.
+Sequencial: planejamento, spec e revisão final.
+Paralelo: tarefas independentes e mecânicas.
+Executores: avançado p/ decisões; econômico
+  p/ checklist; scripts p/ render.
+Contexto: PROJECT-SPEC.md + CHECKLIST.md.
+Limites: 3 subagentes, 2 tentativas,
+  retrabalho só dos reprovados.</pre>
+    </div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>Evolução da skill</h2>
+  <p class="sub">Da versão monolítica à skill enxuta com validação comportamental.</p>
+  <div class="phase"><div class="tag">v1</div><div class="d"><strong>Skill original</strong><span>Metodologia completa num SKILL.md extenso — bom conteúdo, mas corpo inchado, description ampla demais e sem "quando não usar".</span></div></div>
+  <div class="phase"><div class="tag">v2</div><div class="d"><strong>Versão atual — painel de controle</strong><span>Portão de proporcionalidade, description bilíngue focada em gatilho, corpo enxuto (~400 palavras), matriz com limiar objetivo, referências por plataforma (Claude Code, ChatGPT/Codex) e script de teste baseline × skill.</span></div></div>
+  <div class="phase"><div class="tag">v3</div><div class="d"><strong>Próximos passos</strong><span>Bateria completa de validação (5+ repetições por cenário), condições vetadoras na matriz (dependência instável veta paralelismo, independente da soma) e ajuste do discurso conforme o ganho real medido sobre o baseline.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">SKILL.md</div><div class="pill">Claude Code</div><div class="pill">ChatGPT · Codex</div>
+    <p style="margin-top:18px">Arquiteto de Execução · skill de arquitetura para agentes de IA ·
+      <a href="https://github.com/inematds/agenteexecuta">inematds/agenteexecuta</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='agenteexecuta-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

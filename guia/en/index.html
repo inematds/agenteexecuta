@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Arquiteto de Execução — decida sequência, paralelo ou híbrido antes de criar agentes</title>
-<meta content="Skill que aplica uma etapa de arquitetura antes de trabalhos complexos com agentes de IA: portão de proporcionalidade, matriz de decisão sequencial/paralelo/híbrido, executor mais barato e plano antes do primeiro subagente." name="description"/>
+<title>Execution Architect — decide on sequential, parallel, or hybrid execution before creating agents</title>
+<meta content="A skill that applies an architecture step before complex work with AI agents: proportionality gate, sequential/parallel/hybrid decision matrix, cheapest executor, and a plan before the first subagent." name="description"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
@@ -90,9 +90,9 @@
   .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
 </style>
 <link href="https://inematds.github.io/agenteexecuta/guia/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/agenteexecuta/guia/en/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/agenteexecuta/guia/es/" hreflang="es" rel="alternate"/></head>
-<body><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="./" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="en/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="es/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<body><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../es/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
 <nav><div class="wrap">
-<a class="brand" href="#top"><span class="emoji">🧭</span> Arquiteto de Execução</a>
+<a class="brand" href="#top"><span class="emoji">🧭</span> Execution Architect</a>
 <span class="sep">|</span>
 <span class="clubpro">
 <a class="inema" href="https://inema.club" rel="noopener" target="_blank">INEMA.CLUB</a>
@@ -100,12 +100,12 @@
 <a class="pro" href="https://inema.pro" rel="noopener" target="_blank">PRO</a>
 </span>
 <div class="links">
-<a class="sec" href="#oque">O que é</a>
-<a class="sec" href="#fluxo">Como funciona</a>
-<a class="sec" href="#guia">Guia de uso</a>
-<a class="sec" href="#exemplos">Exemplos</a>
+<a class="sec" href="#oque">What it is</a>
+<a class="sec" href="#fluxo">How it works</a>
+<a class="sec" href="#guia">User guide</a>
+<a class="sec" href="#exemplos">Examples</a>
 <a class="sec" href="#roadmap">Roadmap</a>
-<button aria-label="Alternar tema" class="tgl" id="themeToggle" title="Alternar tema">🌙</button>
+<button aria-label="Toggle theme" class="tgl" id="themeToggle" title="Toggle theme">🌙</button>
 <a class="btn" href="https://github.com/inematds/agenteexecuta" rel="noopener" target="_blank">GitHub</a>
 </div>
 </div></nav>
@@ -113,109 +113,109 @@
 <div class="glow"></div>
 <div class="wrap">
 <div>
-<span class="chip">Skill · paralelo × sequencial × híbrido</span>
-<h1>Decida a <span class="amb">arquitetura</span> antes de criar agentes</h1>
-<p class="lead">Uma skill que escolhe entre sequência, paralelismo e fluxo híbrido antes de executar — menos tokens, menos retrabalho, mais consistência.</p>
+<span class="chip">Skill · parallel × sequential × hybrid</span>
+<h1>Decide on the <span class="amb">architecture</span> before creating agents</h1>
+<p class="lead">A skill that chooses between sequential, parallel, and hybrid workflows before execution — fewer tokens, less rework, more consistency.</p>
 <div class="cta">
-<a class="btn" href="#guia">Começar o guia</a>
-<a class="btn ghost" href="https://github.com/inematds/agenteexecuta" rel="noopener" target="_blank">Ver no GitHub</a>
+<a class="btn" href="#guia">Start the guide</a>
+<a class="btn ghost" href="https://github.com/inematds/agenteexecuta" rel="noopener" target="_blank">View on GitHub</a>
 </div>
 </div>
-<figure><img alt="Comparativo: paralelismo mal usado vs sequência inteligente com automação em paralelo" src="assets/hero.jpg"/></figure>
+<figure><img alt="Comparison: misused parallelism vs. smart sequencing with parallel automation" src="../assets/hero.jpg"/></figure>
 </div>
 </header>
 <section id="oque"><div class="wrap">
-<span class="chip">O que é</span>
-<h2>Uma etapa de arquitetura antes de trabalhos complexos</h2>
-<p class="sub">Agentes demais relendo o mesmo contexto desperdiçam tokens; sequência cega desperdiça tempo. A skill decide conscientemente — e só depois executa.</p>
+<span class="chip">What it is</span>
+<h2>An architecture step before complex work</h2>
+<p class="sub">Too many agents rereading the same context waste tokens; blind sequencing wastes time. The skill makes a deliberate decision — and only then executes.</p>
 <div class="grid g3">
-<div class="card"><h3>🚪 Portão de proporcionalidade</h3><p>Primeira decisão: a tarefa exige divisão, múltiplos executores ou contexto extenso? Se não, executa direto — sem burocracia de plano.</p></div>
-<div class="card"><h3>⚖️ Matriz de decisão</h3><p>Sinais pontuados para sequencial e paralelo, com limiar objetivo: diferença ≥ 2 pontos decide; empate ou diferença menor → híbrido.</p></div>
-<div class="card"><h3>💸 Executor mais barato</h3><p>Script para o mecânico, modelo econômico para o estruturado, modelo avançado só para estratégia e criação. Nunca um agente esperando render.</p></div>
+<div class="card"><h3>🚪 Proportionality gate</h3><p>First decision: does the task require splitting, multiple executors, or extensive context? If not, execute directly — no planning bureaucracy.</p></div>
+<div class="card"><h3>⚖️ Decision matrix</h3><p>Scored signals for sequential and parallel work, with an objective threshold: a difference ≥ 2 points decides; a tie or smaller difference → hybrid.</p></div>
+<div class="card"><h3>💸 Cheapest executor</h3><p>Script for mechanical work, economical model for structured work, advanced model only for strategy and creation. Never an agent waiting for a render.</p></div>
 </div>
 </div></section>
 <section id="fluxo"><div class="wrap">
-<span class="chip">Como funciona</span>
-<h2>Do pedido ao plano — antes do primeiro subagente</h2>
-<p class="sub">O fluxo separa raciocínio de execução: centraliza decisões, registra o contexto uma vez, automatiza o mecânico e paraleliza só o que é realmente independente.</p>
+<span class="chip">How it works</span>
+<h2>From request to plan — before the first subagent</h2>
+<p class="sub">The workflow separates reasoning from execution: it centralizes decisions, records the context once, automates the mechanical work, and parallelizes only what is truly independent.</p>
 <div class="flow">
-<span>Pedido</span><span class="arr">→</span>
-<span>Portão de proporcionalidade</span><span class="arr">→</span>
-<span>Decompor</span><span class="arr">→</span>
-<span>Matriz de decisão</span><span class="arr">→</span>
-<span>Plano compacto</span><span class="arr">→</span>
-<span>Execução</span><span class="arr">→</span>
-<span>Revisão central</span>
+<span>Request</span><span class="arr">→</span>
+<span>Proportionality gate</span><span class="arr">→</span>
+<span>Break down</span><span class="arr">→</span>
+<span>Decision matrix</span><span class="arr">→</span>
+<span>Compact plan</span><span class="arr">→</span>
+<span>Execution</span><span class="arr">→</span>
+<span>Central review</span>
 </div>
 <div class="grid g3" style="margin-top:26px">
-<div class="card"><span class="num">1</span><h3>Sequencial</h3><p>Tarefas dependentes ou com muito contexto compartilhado. O aprendizado de uma etapa alimenta a seguinte.</p></div>
-<div class="card"><span class="num">2</span><h3>Paralelo</h3><p>Tarefas independentes, entradas congeladas, contexto pequeno por tarefa. Renders e conversões viram scripts em paralelo.</p></div>
-<div class="card"><span class="num">3</span><h3>Híbrido</h3><p>Padrão para projetos grandes: planejamento centralizado, especificação única, execução independente em paralelo, revisão central.</p></div>
+<div class="card"><span class="num">1</span><h3>Sequential</h3><p>Dependent tasks or tasks with lots of shared context. What you learn at one step informs the next.</p></div>
+<div class="card"><span class="num">2</span><h3>Parallel</h3><p>Independent tasks, frozen inputs, little context per task. Renders and conversions become parallel scripts.</p></div>
+<div class="card"><span class="num">3</span><h3>Hybrid</h3><p>Default for large projects: centralized planning, a single specification, independent parallel execution, central review.</p></div>
 </div>
 </div></section>
 <section id="pre"><div class="wrap">
-<span class="chip">Pré-requisitos</span>
-<h2>O que você precisa</h2>
-<p class="sub">A skill é um pacote de arquivos Markdown — funciona em qualquer agente que suporte skills. O script de teste usa a CLI do Claude Code.</p>
+<span class="chip">Prerequisites</span>
+<h2>What you need</h2>
+<p class="sub">The skill is a package of Markdown files — it works with any agent that supports skills. The test script uses the Claude Code CLI.</p>
 <div class="grid g3">
-<div class="card"><h3>Um agente com skills</h3><p>Claude Code, ChatGPT (upload do zip) ou Codex. O núcleo é universal; os mapeamentos por plataforma estão em <code>references/</code>.</p><pre><span class="c"># conferir a CLI (para Claude Code)</span>
+<div class="card"><h3>One agent with skills</h3><p>Claude Code, ChatGPT (ZIP upload), or Codex. The core is universal; the platform mappings are in <code>references/</code>.</p><pre><span class="c"># check the CLI (for Claude Code)</span>
 <span class="k">claude</span> --version</pre></div>
-<div class="card"><h3>Git</h3><p>Para clonar o repositório com a skill, o guia e o script de teste.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/agenteexecuta</span></pre></div>
-<div class="card"><h3>Bash (opcional)</h3><p>Só para rodar o teste comportamental baseline × com skill.</p><pre><span class="k">bash</span> --version</pre></div>
+<div class="card"><h3>Git</h3><p>To clone the repository with the skill, guide, and test script.</p><pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/agenteexecuta</span></pre></div>
+<div class="card"><h3>Bash (optional)</h3><p>Only to run the baseline × with skill behavioral test.</p><pre><span class="k">bash</span> --version</pre></div>
 </div>
 </div></section>
 <section id="guia"><div class="wrap">
-<span class="chip">Guia de uso · passo a passo</span>
-<h2>Instalar e usar a skill</h2>
-<p class="sub">Do clone à validação comportamental, com comandos reais.</p>
+<span class="chip">User guide · step by step</span>
+<h2>Install and use the skill</h2>
+<p class="sub">From cloning to behavioral validation, with real commands.</p>
 <div class="step"><div class="b">1</div><div>
-<h3>Clone o repositório</h3>
-<p>A skill vive na pasta <code>arquiteto-de-execucao/</code>, com SKILL.md, referências e script de teste.</p>
+<h3>Clone the repository</h3>
+<p>The skill lives in the folder <code>arquiteto-de-execucao/</code>, with SKILL.md, references, and a test script.</p>
 <pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/agenteexecuta</span>
 <span class="k">cd</span> agenteexecuta</pre>
 </div></div>
 <div class="step"><div class="b">2</div><div>
-<h3>Instale no Claude Code</h3>
-<p>Copie a pasta da skill para o diretório de skills do usuário. Ela passa a ser acionada automaticamente antes de trabalhos com subagentes ou lotes.</p>
-<pre><span class="k">cp -r</span> arquiteto-de-execucao ~/.claude/skills/  <span class="c"># disponível na próxima sessão</span></pre>
+<h3>Install in Claude Code</h3>
+<p>Copy the skill folder to the user's skills directory. It will then be triggered automatically before work involving subagents or batches.</p>
+<pre><span class="k">cp -r</span> arquiteto-de-execucao ~/.claude/skills/  <span class="c"># available in the next session</span></pre>
 </div></div>
 <div class="step"><div class="b">3</div><div>
-<h3>Ou instale no ChatGPT / Codex</h3>
-<p>Use o zip pronto — ele inclui o <code>agents/openai.yaml</code> com a configuração de interface para o ecossistema OpenAI.</p>
-<pre><span class="c"># suba este arquivo na criação da skill/GPT:</span>
+<h3>Or install in ChatGPT / Codex</h3>
+<p>Use the ready-made zip — it includes the <code>agents/openai.yaml</code> with the interface configuration for the OpenAI ecosystem.</p>
+<pre><span class="c"># upload this file when creating the skill/GPT:</span>
 arquiteto-de-execucao-v2.zip</pre>
 </div></div>
 <div class="step"><div class="b">4</div><div>
-<h3>Use num trabalho grande</h3>
-<p>Peça uma tarefa com múltiplas entregas. A skill produz o plano compacto ANTES de criar qualquer subagente — estratégia, o que é sequencial/paralelo, executores, limites e risco principal.</p>
-<pre><span class="c"># exemplo de pedido que ativa a skill:</span>
+<h3>Use it for a large project</h3>
+<p>Ask for a task with multiple deliverables. The skill produces a compact plan BEFORE creating any subagents — strategy, what is sequential/parallel, executors, limits, and the main risk.</p>
+<pre><span class="c"># example request that activates the skill:</span>
 <span class="s">"Produza 15 vídeos curtos da série X usando agentes. O guia de estilo tem 40 páginas."</span></pre>
 </div></div>
 <div class="step"><div class="b">5</div><div>
-<h3>Em dúvida, consulte a matriz</h3>
-<p>Sinais pontuados e limiar objetivo, com exemplos resolvidos (15 vídeos, pesquisa de mercado, migração, 500 arquivos).</p>
+<h3>When in doubt, consult the matrix</h3>
+<p>Scored signals and an objective threshold, with worked examples (15 videos, market research, migration, 500 files).</p>
 <pre><span class="k">cat</span> arquiteto-de-execucao/references/decision-matrix.md</pre>
 </div></div>
 <div class="step"><div class="b">6</div><div>
-<h3>Valide o comportamento (baseline × com skill)</h3>
-<p>O script roda os 3 cenários de teste em modo headless e salva as respostas para leitura manual contra os critérios de <code>references/test-scenarios.md</code>.</p>
-<pre><span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span>              <span class="c"># fumaça: cenário 1, 1 rep</span>
-<span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span> all both 5   <span class="c"># bateria completa</span></pre>
+<h3>Validate the behavior (baseline × with skill)</h3>
+<p>The script runs the 3 test scenarios in headless mode and saves the responses for manual review against the criteria for <code>references/test-scenarios.md</code>.</p>
+<pre><span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span>              <span class="c"># smoke test: scenario 1, 1 run</span>
+<span class="k">./arquiteto-de-execucao/scripts/test-skill.sh</span> all both 5   <span class="c"># full test suite</span></pre>
 </div></div>
 </div></section>
 <section id="exemplos"><div class="wrap">
-<span class="chip">Exemplos</span>
-<h2>O princípio em números — e o plano que a skill produz</h2>
-<p class="sub">A economia não vem de "sequencial ser sempre melhor": vem de amortizar o custo do contexto compartilhado.</p>
+<span class="chip">Examples</span>
+<h2>The principle in numbers — and the plan the skill produces</h2>
+<p class="sub">The savings don't come from "sequential is always better": they come from amortizing the cost of shared context.</p>
 <div class="ex">
-<div class="card"><h3>💰 Custo do contexto repetido</h3>
-<pre><span class="c"># 3 agentes relendo o mesmo material:</span>
+<div class="card"><h3>💰 Cost of repeated context</h3>
+<pre><span class="c"># 3 agents rereading the same material:</span>
 3 × (50k contexto + 20k execução) = <span class="k">210k tokens</span>
 
-<span class="c"># 1 executor reutilizando o contexto:</span>
+<span class="c"># 1 executor reusing the context:</span>
 50k + 20k + 20k + 20k = <span class="k">110k tokens</span></pre>
 </div>
-<div class="card"><h3>📋 Plano compacto (saída da skill)</h3>
+<div class="card"><h3>📋 Compact plan (skill output)</h3>
 <pre>Estratégia: híbrida.
 Sequencial: planejamento, spec e revisão final.
 Paralelo: tarefas independentes e mecânicas.
@@ -229,16 +229,16 @@ Limites: 3 subagentes, 2 tentativas,
 </div></section>
 <section id="roadmap"><div class="wrap">
 <span class="chip">Roadmap</span>
-<h2>Evolução da skill</h2>
-<p class="sub">Da versão monolítica à skill enxuta com validação comportamental.</p>
-<div class="phase"><div class="tag">v1</div><div class="d"><strong>Skill original</strong><span>Metodologia completa num SKILL.md extenso — bom conteúdo, mas corpo inchado, description ampla demais e sem "quando não usar".</span></div></div>
-<div class="phase"><div class="tag">v2</div><div class="d"><strong>Versão atual — painel de controle</strong><span>Portão de proporcionalidade, description bilíngue focada em gatilho, corpo enxuto (~400 palavras), matriz com limiar objetivo, referências por plataforma (Claude Code, ChatGPT/Codex) e script de teste baseline × skill.</span></div></div>
-<div class="phase"><div class="tag">v3</div><div class="d"><strong>Próximos passos</strong><span>Bateria completa de validação (5+ repetições por cenário), condições vetadoras na matriz (dependência instável veta paralelismo, independente da soma) e ajuste do discurso conforme o ganho real medido sobre o baseline.</span></div></div>
+<h2>Skill evolution</h2>
+<p class="sub">From the monolithic version to a lean skill with behavioral validation.</p>
+<div class="phase"><div class="tag">v1</div><div class="d"><strong>Original skill</strong><span>Complete methodology in a lengthy SKILL.md — good content, but bloated, an overly broad description, and no "when not to use" guidance.</span></div></div>
+<div class="phase"><div class="tag">v2</div><div class="d"><strong>Current version — control panel</strong><span>Proportionality gate, bilingual description focused on triggers, concise body (~400 words), matrix with an objective threshold, platform references (Claude Code, ChatGPT/Codex), and baseline × skill test script.</span></div></div>
+<div class="phase"><div class="tag">v3</div><div class="d"><strong>Next steps</strong><span>Full validation suite (5+ runs per scenario), veto conditions in the matrix (an unstable dependency rules out parallelism, regardless of the total score), and adjust the messaging based on the actual measured gain over the baseline.</span></div></div>
 </div></section>
 <footer>
 <div class="wrap">
 <div class="pill">SKILL.md</div><div class="pill">Claude Code</div><div class="pill">ChatGPT · Codex</div>
-<p style="margin-top:18px">Arquiteto de Execução · skill de arquitetura para agentes de IA ·
+<p style="margin-top:18px">Execution Architect · architecture skill for AI agents ·
       <a href="https://github.com/inematds/agenteexecuta">inematds/agenteexecuta</a> ·
       <a href="https://inema.club">INEMA.CLUB</a></p>
 </div>
